@@ -113,7 +113,7 @@
     <dependency>
       <groupId>com.google.appengine</groupId>
       <artifactId>appengine-jsr107cache</artifactId>
-      <version>1.6.1</version>
+      <version>1.9.18</version>
       <scope>runtime</scope>
     </dependency>
 	<dependency>
@@ -132,7 +132,7 @@
     <dependency>
       <groupId>com.google.appengine</groupId>
       <artifactId>appengine-api-stubs</artifactId>
-      <version>1.6.1</version>
+      <version>1.9.18</version>
       <scope>${appengine-api-stubs.scope}</scope>
     </dependency>
 
@@ -140,12 +140,12 @@
     <dependency>
       <groupId>com.google.appengine</groupId>
       <artifactId>appengine-api-1.0-sdk</artifactId>
-      <version>1.6.1</version>
+      <version>1.9.18</version>
     </dependency>
     <dependency>
       <groupId>com.google.appengine</groupId>
       <artifactId>appengine-api-labs</artifactId>
-      <version>1.6.1</version>
+      <version>1.9.18</version>
     </dependency>
 
     <!-- Logging -->
@@ -482,13 +482,13 @@
             <configuration>
               <tasks>
                 <echo message="Will download Google App Engine for Java and run appcfg tool to upload the application." />
-                <mkdir dir="${java.io.tmpdir}/gaej1.6.1"/>
-                <get src="http://googleappengine.googlecode.com/files/appengine-java-sdk-1.6.1.zip" dest="${java.io.tmpdir}/gaej1.6.1/appengine-java-sdk-1.6.1.zip" verbose="yes" usetimestamp="true"/>
-                <unzip src="${java.io.tmpdir}/gaej1.6.1/appengine-java-sdk-1.6.1.zip" dest="${java.io.tmpdir}/gaej1.6.1" overwrite="false"/>
+                <mkdir dir="${java.io.tmpdir}/gaej1.9.18"/>
+                <get src="https://storage.googleapis.com/appengine-sdks/featured/appengine-java-sdk-1.9.18.zip" dest="${java.io.tmpdir}/gaej1.9.18/appengine-java-sdk-1.9.18.zip" verbose="yes" usetimestamp="true"/>
+                <unzip src="${java.io.tmpdir}/gaej1.9.18/appengine-java-sdk-1.9.18.zip" dest="${java.io.tmpdir}/gaej1.9.18" overwrite="false"/>
                 <java fork="false" classname="com.google.appengine.tools.admin.AppCfg">
-                  <sysproperty key="appengine.sdk.root" value="${java.io.tmpdir}/gaej1.6.1/appengine-java-sdk-1.6.1"/>
+                  <sysproperty key="appengine.sdk.root" value="${java.io.tmpdir}/gaej1.9.18/appengine-java-sdk-1.9.18"/>
                   <classpath>
-                    <fileset dir="${java.io.tmpdir}/gaej1.6.1/appengine-java-sdk-1.6.1">
+                    <fileset dir="${java.io.tmpdir}/gaej1.9.18/appengine-java-sdk-1.9.18">
                       <include name="lib/appengine-tools-api.jar"/>
                     </fileset>
                   </classpath>
@@ -503,7 +503,22 @@
           </execution>
         </executions>
       </plugin>
-
+            <plugin>
+                <groupId>com.google.appengine</groupId>
+                <artifactId>appengine-maven-plugin</artifactId>
+                <version>1.9.18</version>
+                <configuration>
+                    <enableJarClasses>false</enableJarClasses>
+                    <!-- Comment in the below snippet to bind to all IPs instead of just localhost -->
+                    <!-- address>0.0.0.0</address>
+                    <port>8080</port -->
+                    <!-- Comment in the below snippet to enable local debugging with a remove debugger
+                         like those included with Eclipse or IntelliJ -->
+                    <!-- jvmFlags>
+                      <jvmFlag>-agentlib:jdwp=transport=dt_socket,address=8000,server=y,suspend=n</jvmFlag>
+                    </jvmFlags -->
+                </configuration>
+            </plugin>
     </plugins>
   </build>
 
